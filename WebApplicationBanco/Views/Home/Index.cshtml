@@ -1,8 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@{ 
+    
+}
 <div class="text-center">
-    <h1 class="display-4">Welkome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Banco Test</h1>
 </div>
+
+<form id="log" action="/BankView.cshtml">
+    <label>Ingrese su usuario:</label>
+    <br />
+    <textarea name="user" placeholder="Usuario"></textarea>
+    <br />
+    <label>Ingrese su PIN</label>
+    <br />
+    <input type="number" name="pin" placeholder="4-PIN" min="1000" max="9999" />
+    <br /><br />
+    <input type="submit" value="Submit" onclick="">
+</form>

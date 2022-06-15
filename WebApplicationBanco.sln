@@ -4,16 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.32413.511
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationBanco", "WebApplicationBanco\WebApplicationBanco.csproj", "{C229012D-284D-4BA9-B45D-EF9784F08FF2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C97321B1-6931-4F02-B258-D11157DAA897} = {C97321B1-6931-4F02-B258-D11157DAA897}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationBanco.Application", "WebApplicationBanco.Application\WebApplicationBanco.Application.csproj", "{15DBDF60-D40B-490B-93C3-1E678DFBA79D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationBanco.Entities", "WebApplicationBanco.Entities\WebApplicationBanco.Entities.csproj", "{7A2C7EA0-FBA3-4B66-8F6A-AF142A73576B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationBanco.DataAccess", "WebApplicationBanco.DataAccess\WebApplicationBanco.DataAccess.csproj", "{9A187936-FCF2-4792-B23A-7E7156D4401C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationBanco.Repository", "WebApplicationBanco.Repository\WebApplicationBanco.Repository.csproj", "{2D4B9C7A-14FC-49A7-BA87-C09F5B6D7438}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationBanco.Services", "WebApplicationBanco.Services\WebApplicationBanco.Services.csproj", "{7B56B72E-E6D4-4A2D-AA28-5C25BD6E0777}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banco.Services", "Banco.Services\Banco.Services.csproj", "{C97321B1-6931-4F02-B258-D11157DAA897}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,26 +20,10 @@ Global
 		{C229012D-284D-4BA9-B45D-EF9784F08FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C229012D-284D-4BA9-B45D-EF9784F08FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C229012D-284D-4BA9-B45D-EF9784F08FF2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15DBDF60-D40B-490B-93C3-1E678DFBA79D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15DBDF60-D40B-490B-93C3-1E678DFBA79D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15DBDF60-D40B-490B-93C3-1E678DFBA79D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15DBDF60-D40B-490B-93C3-1E678DFBA79D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A2C7EA0-FBA3-4B66-8F6A-AF142A73576B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A2C7EA0-FBA3-4B66-8F6A-AF142A73576B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A2C7EA0-FBA3-4B66-8F6A-AF142A73576B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A2C7EA0-FBA3-4B66-8F6A-AF142A73576B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A187936-FCF2-4792-B23A-7E7156D4401C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A187936-FCF2-4792-B23A-7E7156D4401C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A187936-FCF2-4792-B23A-7E7156D4401C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A187936-FCF2-4792-B23A-7E7156D4401C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D4B9C7A-14FC-49A7-BA87-C09F5B6D7438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D4B9C7A-14FC-49A7-BA87-C09F5B6D7438}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D4B9C7A-14FC-49A7-BA87-C09F5B6D7438}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D4B9C7A-14FC-49A7-BA87-C09F5B6D7438}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B56B72E-E6D4-4A2D-AA28-5C25BD6E0777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B56B72E-E6D4-4A2D-AA28-5C25BD6E0777}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B56B72E-E6D4-4A2D-AA28-5C25BD6E0777}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B56B72E-E6D4-4A2D-AA28-5C25BD6E0777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C97321B1-6931-4F02-B258-D11157DAA897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C97321B1-6931-4F02-B258-D11157DAA897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C97321B1-6931-4F02-B258-D11157DAA897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C97321B1-6931-4F02-B258-D11157DAA897}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
