@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebApplicationBanco.Entities\WebApplicationBanco.Entities.csproj" />
+    <ProjectReference Include="..\WebApplicationBanco.Repository\WebApplicationBanco.Repository.csproj" />
+    <ProjectReference Include="..\WebApplicationBanco.Services\WebApplicationBanco.Services.csproj" />
+  </ItemGroup>
+
+</Project>
