@@ -33,12 +33,12 @@ namespace WebApplicationBanco.Controllers
                 {
                     if (b.NumeroTarjeta.Equals(tarj.NumeroTarjeta))
                     {
-                        returnable = true;
+                        if (!b.Bloqueo) { returnable = true; }
                         break;
                     }
                 }
             }
-            return returnable ? View("_BancView") : BadRequest(ModelState);
+            return returnable ? View("_BancView", tarj) : BadRequest(ModelState);
         }
         //[HttpPost]
         //public bool LogTarjetaNumero(long tarj)

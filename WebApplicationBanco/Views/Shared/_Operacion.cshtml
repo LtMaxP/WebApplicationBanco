@@ -1,0 +1,22 @@
+﻿@model Cuentum;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="text-center">
+    <h1 class="display-4">Operacion de cuenta </h1>
+</div>
+
+<form id="log" action="@Url.Action("LogTarjetaPIN", "Home")" method="post">
+    <label>Monto:</label>
+    @*<label>@Cuentum</label>*@
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <input type="button" onclick="form"> Retirar <input />
+    <input type="button"> Depositar <input />
+</form>
+

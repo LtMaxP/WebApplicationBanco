@@ -15,6 +15,8 @@ namespace WebApplicationBanco.Models
         public int IdTarjeta { get; set; }
         public long? NumeroTarjeta { get; set; }
         public int? Pin { get; set; }
+        public bool Bloqueo { get; set; }
+        public byte IntentosFallidos { get; set; }
 
         public virtual ICollection<Cuentum> Cuenta { get; set; }
     }
