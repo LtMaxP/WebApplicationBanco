@@ -25,6 +25,7 @@ namespace WebApplicationBanco
         {
             services.AddControllersWithViews();
             //services.AddTransient
+            //services.AddSingleton(<TUsuario>,
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

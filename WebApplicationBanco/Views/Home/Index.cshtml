@@ -1,21 +1,25 @@
-﻿@{
+﻿@model WebApplicationBanco.Models.Tarjetum
+@{
     ViewData["Title"] = "Home Page";
 }
-@{ 
-    
+@{
+
 }
 <div class="text-center">
     <h1 class="display-4">Banco Test</h1>
 </div>
 
-<form id="log" action="/BankView.cshtml">
-    <label>Ingrese su usuario:</label>
+<form id="log" action="@Url.Action("LogTarjetaNumero","Home")" method="post">
+    <label>Ingrese su tarjeta:</label>
     <br />
-    <textarea name="user" placeholder="Usuario"></textarea>
+    @Html.TextBoxFor(m => m.NumeroTarjeta)
     <br />
-    <label>Ingrese su PIN</label>
+    <input type="submit" value="Submit" />
+</form>
+
+
+
+@*<label>Ingrese su PIN</label>
     <br />
     <input type="number" name="pin" placeholder="4-PIN" min="1000" max="9999" />
-    <br /><br />
-    <input type="submit" value="Submit" onclick="">
-</form>
+    <br /><br />*@

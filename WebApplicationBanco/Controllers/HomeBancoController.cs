@@ -18,6 +18,7 @@ namespace WebApplicationBanco.Controllers
         // GET: HomeBancoController1/Details/5
         public ActionResult Details(int id)
         {
+            //using(var cont = new Context)
             return View();
         }
 
@@ -62,6 +63,7 @@ namespace WebApplicationBanco.Controllers
                 return View();
             }
         }
+
 
         // GET: HomeBancoController1/Delete/5
         public ActionResult Delete(int id)
