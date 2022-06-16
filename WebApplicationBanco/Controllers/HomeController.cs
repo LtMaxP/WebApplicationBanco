@@ -20,12 +20,11 @@ namespace WebApplicationBanco.Controllers
         [HttpPost]
         public ActionResult Index(Tarjetum tarj)
         {
-
             return View();
         }
 
         [HttpPost]
-        public bool LogTarjetaNumero(Tarjetum tarj)
+        public ActionResult LogTarjetaNumero(Tarjetum tarj)
         {
             bool returnable = false;
             using (var context = new TestBancoContext())
@@ -39,9 +38,7 @@ namespace WebApplicationBanco.Controllers
                     }
                 }
             }
-            //    long val = (long)tarj.NumeroTarjeta;
-            //return _tar.NumeroTarjeta.HasValue.Equals(val) ? true : false;
-            return returnable;
+            return returnable ? View("_BancView") : BadRequest(ModelState);
         }
         //[HttpPost]
         //public bool LogTarjetaNumero(long tarj)

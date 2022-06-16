@@ -1,0 +1,22 @@
+﻿@model Tarjetum
+
+@*@model WebApplicationBanco.Models.Tarjetum*@
+@{
+    ViewData["Title"] = "Bank Page";
+}
+@{
+
+}
+<div class="text-center">
+    <h1 class="display-4">PIN</h1>
+</div>
+
+<form id="log" action="@Url.Action("LogTarjetaPIN", "Home")" method="post">
+    <label>Ingrese su PIN:</label>
+    <br />
+        <br />
+        <input type="number" name="pin" placeholder="4-PIN" min="1000" max="9999" @Html.TextBoxFor(m => m.Pin)/>
+        <br />
+    <br />
+    <input type="submit" value="Submit" />
+</form>
