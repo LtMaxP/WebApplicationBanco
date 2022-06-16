@@ -11,10 +11,11 @@ namespace WebApplicationBanco.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly Tarjetum _tar;
-       
+        
+
         public ActionResult Index()
         {
+            
             return View();
         }
         [HttpPost]
@@ -27,56 +28,92 @@ namespace WebApplicationBanco.Controllers
         public ActionResult LogTarjetaNumero(Tarjetum tarj)
         {
             bool returnable = false;
+            Tarjetum tarjeta = new Tarjetum();
             using (var context = new TestBancoContext())
             {
                 foreach (var b in context.Tarjeta.ToList())
                 {
                     if (b.NumeroTarjeta.Equals(tarj.NumeroTarjeta))
                     {
-                        if (!b.Bloqueo) { returnable = true; }
+                        if (!b.Bloqueo)
+                        {
+                            returnable = true;
+                            tarjeta.IdTarjeta = b.IdTarjeta;
+                            tarjeta.NumeroTarjeta = b.NumeroTarjeta;
+                        }
                         break;
                     }
                 }
             }
-            return returnable ? View("_BancView", tarj) : BadRequest(ModelState);
+            return returnable ? View("_BancView", tarjeta) : BadRequest(ModelState);
         }
-        //[HttpPost]
-        //public bool LogTarjetaNumero(long tarj)
-        //{
-        //    bool returnable = false;
-        //    using (var context = new TestBancoContext())
-        //    {
-        //        foreach (var b in context.Tarjeta.ToList())
-        //        {
-        //            if (b.NumeroTarjeta.Equals(tarj))
-        //            {
-        //                returnable = true;
-        //                break;
-        //            }
-        //        }
-        //    }
-        //    //    long val = (long)tarj.NumeroTarjeta;
-        //    //return _tar.NumeroTarjeta.HasValue.Equals(val) ? true : false;
-        //    return returnable;
-        //}
-        public bool LogTarjetaPIN(Tarjetum tarj)
+
+        [HttpPost]
+        public ActionResult LogTarjetaPIN(Tarjetum tarj)
         {
             bool returnable = false;
             using (var context = new TestBancoContext())
             {
-                foreach (var b in context.Tarjeta.ToList())
+                var b = context.Tarjeta.FirstOrDefault<Tarjetum>(o => o.IdTarjeta == tarj.IdTarjeta);
+                if (b != null)
                 {
-                    if (b.NumeroTarjeta.Equals(tarj.NumeroTarjeta))
+                    if (!b.Bloqueo)
                     {
-                        returnable = b.Pin.Equals(tarj.Pin) ? true : false;
-                        break;
+                        if (b.Pin.Equals(tarj.Pin))
+                        {
+                            returnable = true;
+                            b.IntentosFallidos = 0;
+                        }
+                        else if (b.IntentosFallidos <= 3)
+                        {
+                            b.IntentosFallidos++;
+                        }
+                        else
+                        {
+                            b.Bloqueo = true;
+                        }
+                        context.SaveChanges();
                     }
                 }
             }
-            //    long val = (long)tarj.NumeroTarjeta;
-            //return _tar.NumeroTarjeta.HasValue.Equals(val) ? true : false;
-            return returnable;
+
+            return returnable ? View("_Operacion", tarj) : BadRequest(ModelState); ;
         }
+
+
+        //[HttpPost]
+        //[Attribute(Name = "action", Argument = "dep")]
+        public ActionResult Deposito(Tarjetum mm, decimal monto)
+        {
+            using (var context = new TestBancoContext())
+            {
+                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == mm.IdTarjeta);
+                if (b != null)
+                {
+                    b.Monto = b.Monto + monto;
+                    context.SaveChanges();
+                }
+            }
+            return View();
+        }
+
+        //[HttpPost]
+        //[MultipleButton(Name = "action", Argument = "ext")]
+        public ActionResult Extraccion(Tarjetum mm, decimal monto)
+        {
+            using (var context = new TestBancoContext())
+            {
+                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == mm.IdTarjeta);
+                if (b != null)
+                {
+                    b.Monto = b.Monto - monto;
+                    context.SaveChanges();
+                }
+            }
+            return View();
+        }
+
+
 
         //private readonly ILogger<HomeController> _logger;
 
