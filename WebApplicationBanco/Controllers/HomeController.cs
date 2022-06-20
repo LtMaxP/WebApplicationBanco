@@ -11,13 +11,11 @@ namespace WebApplicationBanco.Controllers
 {
     public class HomeController : Controller
     {
-        
-
         public ActionResult Index()
         {
-            
             return View();
         }
+
         [HttpPost]
         public ActionResult Index(Tarjetum tarj)
         {
@@ -25,59 +23,71 @@ namespace WebApplicationBanco.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogTarjetaNumero(Tarjetum tarj)
+        public IActionResult LogTarjetaNumero(long tarje)
         {
             bool returnable = false;
-            Tarjetum tarjeta = new Tarjetum();
+            int id = 0;
             using (var context = new TestBancoContext())
             {
                 foreach (var b in context.Tarjeta.ToList())
                 {
-                    if (b.NumeroTarjeta.Equals(tarj.NumeroTarjeta))
+                    if (b.NumeroTarjeta.Equals(tarje))
                     {
                         if (!b.Bloqueo)
                         {
+                            id = b.IdTarjeta;
+                            TempData["idT"] = b.IdTarjeta;
                             returnable = true;
-                            tarjeta.IdTarjeta = b.IdTarjeta;
-                            tarjeta.NumeroTarjeta = b.NumeroTarjeta;
                         }
                         break;
                     }
                 }
             }
-            return returnable ? View("_BancView", tarjeta) : BadRequest(ModelState);
+
+            return returnable ? View("_BancView") : BadRequest(ModelState);
         }
 
+        
         [HttpPost]
-        public ActionResult LogTarjetaPIN(Tarjetum tarj)
+        public ActionResult LogTarjetaPIN(int pin)
         {
             bool returnable = false;
+            int idTar = (int)TempData["idT"];
+            Cuentum c = new Cuentum();
             using (var context = new TestBancoContext())
             {
-                var b = context.Tarjeta.FirstOrDefault<Tarjetum>(o => o.IdTarjeta == tarj.IdTarjeta);
-                if (b != null)
+
+                var b = context.Tarjeta.FirstOrDefault(o => o.IdTarjeta == idTar);
+
+                if (b.Pin.Equals(pin))
                 {
-                    if (!b.Bloqueo)
+
+                    if (b != null)
                     {
-                        if (b.Pin.Equals(tarj.Pin))
+                        if (!b.Bloqueo)
                         {
-                            returnable = true;
-                            b.IntentosFallidos = 0;
+                            if (b.Pin.Equals(pin))
+                            {
+                                returnable = true;
+                                b.IntentosFallidos = 0;
+                                c = context.Cuenta.FirstOrDefault(x => x.IdTarjeta == idTar);
+                                TempData["user"] = c;
+                            }
+                            else if (b.IntentosFallidos <= 4)
+                            {
+                                b.IntentosFallidos++;
+                            }
+                            else
+                            {
+                                b.Bloqueo = true;
+                            }
+                            context.SaveChanges();
                         }
-                        else if (b.IntentosFallidos <= 3)
-                        {
-                            b.IntentosFallidos++;
-                        }
-                        else
-                        {
-                            b.Bloqueo = true;
-                        }
-                        context.SaveChanges();
                     }
                 }
             }
 
-            return returnable ? View("_Operacion", tarj) : BadRequest(ModelState); ;
+            return returnable ? View("_Operacion", c) : BadRequest(ModelState); ;
         }
 
 
@@ -96,6 +106,7 @@ namespace WebApplicationBanco.Controllers
             }
             return View();
         }
+
 
         //[HttpPost]
         //[MultipleButton(Name = "action", Argument = "ext")]

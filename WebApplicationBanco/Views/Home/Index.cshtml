@@ -12,7 +12,7 @@
 <form id="log" action="@Url.Action("LogTarjetaNumero","Home")" method="post">
     <label>Ingrese su tarjeta:</label>
     <br />
-    @Html.TextBoxFor(m => m.NumeroTarjeta)
+    <input type="number" name="tarje" id="tarje" placeholder="credit card" min="1000000000000000" max="9999999999999999" />
     <br />
     <input type="submit" value="Submit" />
 </form>

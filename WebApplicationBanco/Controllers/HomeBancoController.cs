@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplicationBanco.Models;
 
 namespace WebApplicationBanco.Controllers
 {
@@ -12,6 +13,11 @@ namespace WebApplicationBanco.Controllers
         // GET: HomeBancoController1
         public ActionResult Index()
         {
+            return View();
+        }
+        public ActionResult Index(Tarjetum tar)
+        {
+            Tarjetum t = tar;
             return View();
         }
 

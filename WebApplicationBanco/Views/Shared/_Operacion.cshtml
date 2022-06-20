@@ -2,21 +2,22 @@
 
 @{
     ViewData["Title"] = "Operacion Page";
-    ViewBag.monto = "valor";
+    Cuentum user = (Cuentum)TempData["user"];
+    
 }
 <div class="text-center">
     <h1 class="display-4">Operacion de cuenta </h1>
 </div>
 
-<form id="log" action="@Url.Action("name", "Home")" method="post">
-    <label>Monto:</label>
+<form id="log" method="post">
+    <label>Monto: @Model.Monto</label>
     <br />
     <br />
-    @*@Html.ViewContext(c => c.Monto)*@
-    @Html.TextBoxFor(c => c.Monto)
+    @Html.ViewData.Model.Monto.ToString();
+
     <br />
     <br />
-    <input type="submit" value="dep" name="action:dep"> Depositar <input />
-    <input type="submit" value="ext" name="action:ext"> Extraer <input />
+    <input type="button" value="Deposito" name="action:dep" action="@Url.Action("_Deposito", "Home" )">
+    <input type="button" value="Extracción" name="action:ext" action="@Url.Action("_Extraccion", "Home")">
 </form>
 
