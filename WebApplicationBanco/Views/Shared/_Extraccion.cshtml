@@ -1,6 +1,7 @@
 ﻿@model WebApplicationBanco.Models.Cuentum;
 @{
     ViewData["Title"] = "Extraccion Page";
+    var user = TempData["user"];
 }
 <h4>Extracción: </h4>
 <hr />
@@ -8,8 +9,23 @@
 
     <br />
     <br />
-    <label>hdfh</label>
+    <label>Monto: @Model.Monto</label>
     <br />
     <br />
-
+    <form id="log" action="@Url.Action("Extraer", "Home")" method="post">
+        <label>Cuanto desea extraer:</label>
+        <br />
+        <input type="number" name="cash" id="cash" placeholder="$$$" />
+        <br />
+        <input type="submit" value="Aceptar" />
+        <input type="reset" value="Limpiar" />
+    </form>
+    <br />
+    <br />
+    <br />
+    @using (Html.BeginForm("BalanceBack", "Home", user, FormMethod.Post))
+    {
+        <input type='submit' value='Atras' />
+    }
+    <input type="submit" value="Salir" onclick="window.close();" />
 </div>

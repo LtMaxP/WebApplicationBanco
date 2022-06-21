@@ -47,7 +47,7 @@ namespace WebApplicationBanco.Controllers
             return returnable ? View("_BancView") : BadRequest(ModelState);
         }
 
-        
+
         [HttpPost]
         public ActionResult LogTarjetaPIN(int pin)
         {
@@ -126,6 +126,7 @@ namespace WebApplicationBanco.Controllers
             using (var context = new TestBancoContext())
             {
                 b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == idCuenta);
+                TempData["idB"] = b.IdCuenta;
             }
 
             return View("_Balance", b);
@@ -139,26 +140,61 @@ namespace WebApplicationBanco.Controllers
             using (var context = new TestBancoContext())
             {
                 b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == idCuenta);
+                TempData["idE"] = b.IdCuenta;
             }
             return View("_Extraccion", b);
         }
 
+
+        [HttpPost]
+        public ActionResult BalanceBack()
+        {
+            int idCuenta = (int)TempData["id"];
+            Cuentum b = new Cuentum();
+            using (var context = new TestBancoContext())
+            {
+                b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == idCuenta);
+            }
+            return View("_Operacion", b);
+        }
+
+        
+        [HttpPost]
+        public ActionResult Extraer(decimal monto)
+        {
+            int idCuenta = (int)TempData["idE"];
+            Cuentum b = new Cuentum();
+            using (var context = new TestBancoContext())
+            {
+                b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == idCuenta);
+                if (b != null)
+                {
+                    b.Monto = b.Monto - monto;
+                    Registro r = new Registro();
+                    r.IdUsuario = context.Usuarios.FirstOrDefault(o => o.IdCuenta == idCuenta).IdUsuario;
+                    r.Accion = "Extrae " + monto;
+                    r.FechaRegistro = DateTime.Now;
+                    context.SaveChanges();
+                }
+            }
+            return View();
+        }
         ////[HttpPost]
         ////[MultipleButton(Name = "action", Argument = "ext")]
         //[HttpPost]
-        //public ActionResult Extraccion(int id, decimal monto)
-        //{
-        //    using (var context = new TestBancoContext())
-        //    {
-        //        var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
-        //        if (b != null)
-        //        {
-        //            b.Monto = b.Monto - monto;
-        //            context.SaveChanges();
-        //        }
-        //    }
-        //    return View("_Extraccion");
-        //}
+        public ActionResult Extraccion(int id, decimal monto)
+        {
+            using (var context = new TestBancoContext())
+            {
+                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
+                if (b != null)
+                {
+                    b.Monto = b.Monto - monto;
+                    context.SaveChanges();
+                }
+            }
+            return View("_Extraccion");
+        }
         //[HttpPost]
         //public ActionResult Extraccion(int id)
         //{

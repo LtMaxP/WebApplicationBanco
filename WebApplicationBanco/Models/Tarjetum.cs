@@ -17,6 +17,7 @@ namespace WebApplicationBanco.Models
         public int? Pin { get; set; }
         public bool Bloqueo { get; set; }
         public byte IntentosFallidos { get; set; }
+        public DateTime? Vencimiento { get; set; }
 
         public virtual ICollection<Cuentum> Cuenta { get; set; }
     }
