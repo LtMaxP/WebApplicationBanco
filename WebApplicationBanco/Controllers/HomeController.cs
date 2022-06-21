@@ -72,6 +72,7 @@ namespace WebApplicationBanco.Controllers
                                 b.IntentosFallidos = 0;
                                 c = context.Cuenta.FirstOrDefault(x => x.IdTarjeta == idTar);
                                 TempData["user"] = c;
+                                TempData["id"] = c.IdCuenta;
                             }
                             else if (b.IntentosFallidos <= 4)
                             {
@@ -93,55 +94,80 @@ namespace WebApplicationBanco.Controllers
 
         //[HttpPost]
         //[Attribute(Name = "action", Argument = "dep")]
+        //[HttpPost]
+        //public ActionResult Deposito(int id, decimal monto)
+        //{
+        //    using (var context = new TestBancoContext())
+        //    {
+        //        var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
+        //        if (b != null)
+        //        {
+        //            b.Monto = b.Monto + monto;
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //    return View("_Deposito");
+        //}
+        //[HttpPost]
+        //public ActionResult Deposito(int id)
+        //{
+        //    using (var context = new TestBancoContext())
+        //    {
+        //        var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
+        //    }
+        //    return View("_Deposito");
+        //}
         [HttpPost]
-        public ActionResult Deposito(int id, decimal monto)
+        public ActionResult Balance()
         {
+
+            int idCuenta = (int)TempData["id"];
+            Cuentum b = new Cuentum();
             using (var context = new TestBancoContext())
             {
-                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
-                if (b != null)
-                {
-                    b.Monto = b.Monto + monto;
-                    context.SaveChanges();
-                }
+                b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == idCuenta);
             }
-            return View("_Deposito");
-        }
-        [HttpPost]
-        public ActionResult Deposito(int id)
-        {
-            using (var context = new TestBancoContext())
-            {
-                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
-            }
-            return View("_Deposito");
+
+            return View("_Balance", b);
         }
 
+        [HttpPost]
+        public ActionResult Extraccion()
+        {
+            int idCuenta = (int)TempData["id"];
+            Cuentum b = new Cuentum();
+            using (var context = new TestBancoContext())
+            {
+                b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == idCuenta);
+            }
+            return View("_Extraccion", b);
+        }
+
+        ////[HttpPost]
+        ////[MultipleButton(Name = "action", Argument = "ext")]
         //[HttpPost]
-        //[MultipleButton(Name = "action", Argument = "ext")]
-        [HttpPost]
-        public ActionResult Extraccion(int id, decimal monto)
-        {
-            using (var context = new TestBancoContext())
-            {
-                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
-                if (b != null)
-                {
-                    b.Monto = b.Monto - monto;
-                    context.SaveChanges();
-                }
-            }
-            return View("_Extraccion");
-        }
-        [HttpPost]
-        public ActionResult Extraccion(int id)
-        {
-            using (var context = new TestBancoContext())
-            {
-                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
-            }
-            return View("_Extraccion");
-        }
+        //public ActionResult Extraccion(int id, decimal monto)
+        //{
+        //    using (var context = new TestBancoContext())
+        //    {
+        //        var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
+        //        if (b != null)
+        //        {
+        //            b.Monto = b.Monto - monto;
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //    return View("_Extraccion");
+        //}
+        //[HttpPost]
+        //public ActionResult Extraccion(int id)
+        //{
+        //    using (var context = new TestBancoContext())
+        //    {
+        //        var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
+        //    }
+        //    return View("_Extraccion");
+        //}
 
 
         //private readonly ILogger<HomeController> _logger;

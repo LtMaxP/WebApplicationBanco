@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Operacion Page";
-    Cuentum user = (Cuentum)TempData["user"];
+    var user = TempData["user"];
 
 }
 <div class="text-center">
@@ -12,14 +12,23 @@
 <label>Monto: @Model.Monto</label>
 <br />
 <br />
-@Html.ViewData.Model.Monto.ToString();
+<label>Tarjeta: @Model.IdTarjetaNavigation.NumeroTarjeta</label>
+@*@Html.ViewData.Model.Monto.ToString();*@
 
 <br />
 <br />
-
-<input type="button" value="Deposito" name="dep" onclick="@Url.Action("Deposito", "Home", user.IdCuenta)">
-<input type="button" value="Extracción" name="ext" onclick="@Url.Action("Extraccion", "Home", user.IdCuenta)">
-<button onclick="@Url.Action("Extraccion","HomeBanco")" >eeexxxtracc</button>
-<button onclick="@Url.Action("Extraccion","Home")">sdsd</button>
+<label>Extraccion</label>
+<br />
+@using (Html.BeginForm("Extraccion", "Home", user, FormMethod.Post))
+{
+    <input type='submit' value='Extraccion' />
+}
+<br />
+<label>Balance</label>
+<br />
+@using (Html.BeginForm("Balance", "Home", user, FormMethod.Post))
+{
+    <input type='submit' value='Balance' />
+}
 
 

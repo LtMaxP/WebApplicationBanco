@@ -1,10 +1,13 @@
-﻿@model WebApplicationBanco.Models.Cuentum
-
+﻿@model WebApplicationBanco.Models.Cuentum;
+@{
+    ViewData["Title"] = "_Balance Page";
+    var user = TempData["user"];
+}
 <h4>Cuentum</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="_Deposito">
+        <form asp-action="_Balance">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdCuenta" />
             <div class="form-group">
