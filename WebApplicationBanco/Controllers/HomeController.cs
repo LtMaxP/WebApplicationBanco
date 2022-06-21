@@ -93,37 +93,55 @@ namespace WebApplicationBanco.Controllers
 
         //[HttpPost]
         //[Attribute(Name = "action", Argument = "dep")]
-        public ActionResult Deposito(Tarjetum mm, decimal monto)
+        [HttpPost]
+        public ActionResult Deposito(int id, decimal monto)
         {
             using (var context = new TestBancoContext())
             {
-                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == mm.IdTarjeta);
+                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
                 if (b != null)
                 {
                     b.Monto = b.Monto + monto;
                     context.SaveChanges();
                 }
             }
-            return View();
+            return View("_Deposito");
         }
-
-
-        //[HttpPost]
-        //[MultipleButton(Name = "action", Argument = "ext")]
-        public ActionResult Extraccion(Tarjetum mm, decimal monto)
+        [HttpPost]
+        public ActionResult Deposito(int id)
         {
             using (var context = new TestBancoContext())
             {
-                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == mm.IdTarjeta);
+                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
+            }
+            return View("_Deposito");
+        }
+
+        //[HttpPost]
+        //[MultipleButton(Name = "action", Argument = "ext")]
+        [HttpPost]
+        public ActionResult Extraccion(int id, decimal monto)
+        {
+            using (var context = new TestBancoContext())
+            {
+                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
                 if (b != null)
                 {
                     b.Monto = b.Monto - monto;
                     context.SaveChanges();
                 }
             }
-            return View();
+            return View("_Extraccion");
         }
-
+        [HttpPost]
+        public ActionResult Extraccion(int id)
+        {
+            using (var context = new TestBancoContext())
+            {
+                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
+            }
+            return View("_Extraccion");
+        }
 
 
         //private readonly ILogger<HomeController> _logger;

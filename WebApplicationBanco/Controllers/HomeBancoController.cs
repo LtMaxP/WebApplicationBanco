@@ -91,5 +91,24 @@ namespace WebApplicationBanco.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        public ActionResult Deposito(int id)
+        {
+            using (var context = new TestBancoContext())
+            {
+                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
+            }
+            return View("_Deposito");
+        }
+        [HttpPost]
+        public ActionResult Extraccion(int id)
+        {
+            using (var context = new TestBancoContext())
+            {
+                var b = context.Cuenta.FirstOrDefault(o => o.IdTarjeta == id);
+            }
+            return View("_Extraccion");
+        }
     }
 }
